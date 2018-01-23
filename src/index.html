@@ -5,10 +5,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Pete's Pet Shop</title>
+    <title>Alberta Dashboard</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/webfont/cryptocoins.css" rel="stylesheet">
+
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -20,64 +31,61 @@
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
   </head>
-  <body>
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12 col-sm-8 col-sm-push-2">
-          <!-- <h1 class="text-center">Pete's Pet Shop</h1> -->
-          <hr/>
-          <br/>
+  <body class="background">
+    <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+      <a class="navbar-brand" href="http://alberta.ai/"><img src="http://alberta.ai/img/alberta-logo.png" alt="Alberta.ai" height="22" width=auto ></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+
+        <ul class="nav navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/accounts">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/accounts/profile">Profile</a>
+          </li>
+          <!--<li class="nav-item">
+            <a class="nav-link" href="/accounts/profile/edit">Edit Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/accounts/change-password">Change Password</a>
+          </li>-->
+          <li class="nav-item">
+            <a class="nav-link" href="/accounts/logout">Log out</a>
+          </li>
+        </ul>
+
+      </div>
+    </nav>
+    <div class="dashboard-content feature-style-5 text-dark">
+      <div class="dashboard-content-padding">
+        <div class="container">
+          <h1 class="section__heading text-center">Join Alberta PreICO</h1>
+          <hr class="dark">
+          <br>
+          <p class="dashboard-p light-grey"><b>Your ETH Address:</b> <span id="accountAddress">0xe99356bde974bbe08721d77712168fa070aa8da4</span></p>
+          <p class="dashboard-p light-grey"><b>Balance:</b> <span id="balance">0</span> ALB Tokens </p>
+          <br>
+          <h5 class="light-grey dashboard-h5"><b>Choose token amount (in ALB):</b> <span id="tokenNumber"></span></h5>
+          <div class="slidecontainer">
+            <!--<input type="range" min="0" max="15000000" value="" class="slider" id="myRange">-->
+            <form name="registrationForm">
+              <input type="range" name="myRange" class="slider" id="myRange" value="0" min="0" max="15000000" oninput="tokenOutputNumber.value = myRange.value">
+              <output class="dashboard-p light-grey" name="tokenOutputNumber" id="tokenOutputNumber">0</output>
+            </form>
+          </div>
+          <!--<input type="email" class="form-control" id="" placeholder="Email">
+          <input type="text" class="form-control" id="" placeholder="ETH Address">
+          <input type="password" class="form-control" id="" placeholder="Password">
+          <input type="text" class="form-control" id="" placeholder="Invitation Code">
+          <div class="btns">-->
+          <button type="button" class="btn blue-btn transferFunds">Invest in <i class="cc ETH-alt" title="ETH"></i></button>
+          <button type="button" class="btn blue-btn">Invest in <i class="cc BTC-alt" title="BTC"></i></button>
         </div>
       </div>
-
-      <!-- <div id="petsRow" class="row">
-        <!-- PETS LOAD HERE -->
-      </div> -->
     </div>
-
-    <!-- <div id="petTemplate" style="display: none;">
-      <div class="col-sm-6 col-md-4 col-lg-3">
-        <div class="panel panel-default panel-pet">
-          <div class="panel-heading">
-            <h3 class="panel-title">Scrappy</h3>
-          </div>
-          <div class="panel-body">
-            <img alt="140x140" data-src="holder.js/140x140" class="img-rounded img-center" style="width: 100%;" src="https://animalso.com/wp-content/uploads/2017/01/Golden-Retriever_6.jpg" data-holder-rendered="true">
-            <br/><br/>
-            <strong>Breed</strong>: <span class="pet-breed">Golden Retriever</span><br/>
-            <strong>Age</strong>: <span class="pet-age">3</span><br/>
-            <strong>Location</strong>: <span class="pet-location">Warren, MI</span><br/><br/>
-            <button class="btn btn-default btn-adopt" type="button" data-id="0">Adopt</button>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
-    <div class="dashboard-content-padding">
-      <div class="container">
-        <h1 class="section__heading text-center">Join Alberta PreICO</h1>
-        <hr class="dark">
-        <br>
-        <p class="dashboard-p light-grey"><b>Your ETH Address:</b> <span id="accountAddress">0xe99356bde974bbe08721d77712168fa070aa8da4</span></p>
-        <p class="dashboard-p light-grey"><b>Balance:</b> <span id="balance">0</span> ALB Tokens </p>
-        <br>
-        <h5 class="light-grey dashboard-h5"><b>Choose token amount (in ALB):</b> <span id="tokenNumber"></span></h5>
-        <div class="slidecontainer">
-          <!--<input type="range" min="0" max="15000000" value="" class="slider" id="myRange">-->
-          <form name="registrationForm">
-            <input type="range" name="myRange" class="slider" id="myRange" value="0" min="0" max="15000000" oninput="tokenOutputNumber.value = myRange.value">
-            <output class="dashboard-p light-grey" name="tokenOutputNumber" id="tokenOutputNumber">0</output>
-          </form>
-        </div>
-        <!--<input type="email" class="form-control" id="" placeholder="Email">
-        <input type="text" class="form-control" id="" placeholder="ETH Address">
-        <input type="password" class="form-control" id="" placeholder="Password">
-        <input type="text" class="form-control" id="" placeholder="Invitation Code">
-        <div class="btns">-->
-        <button type="button" class="btn blue-btn transferFunds">Invest in <i class="cc ETH-alt" title="ETH"></i></button>
-        <button type="button" class="btn blue-btn">Invest in <i class="cc BTC-alt" title="BTC"></i></button>
-      </div>
-
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
