@@ -3,24 +3,10 @@ App = {
     contracts: {},
 
     init: function() {
-        // Load pets.
-        // $.getJSON('../pets.json', function(data) {
-        //   var petsRow = $('#petsRow');
-        //   var petTemplate = $('#petTemplate');
-        //
-        //   for (i = 0; i < data.length; i ++) {
-        //     petTemplate.find('.panel-title').text(data[i].name);
-        //     petTemplate.find('img').attr('src', data[i].picture);
-        //     petTemplate.find('.pet-breed').text(data[i].breed);
-        //     petTemplate.find('.pet-age').text(data[i].age);
-        //     petTemplate.find('.pet-location').text(data[i].location);
-        //     petTemplate.find('.btn-adopt').attr('data-id', data[i].id);
-        //
-        //     petsRow.append(petTemplate.html());
-        //   }
-        // ERC20
-        var accountAddress = $('#accountAddress').text();
+        var account = $('#accountAddress').text();
+        var balance = 0;
         var chosenTokenNumber = document.getElementById("tokenOutputNumber").value;
+        var BigNumber = require('bignumber.js');
         return App.initWeb3();
     },
 
@@ -38,17 +24,6 @@ App = {
     },
 
     initContract: function() {
-        // $.getJSON('Adoption.json', function(data) {
-        //   // Get the necessary contract artifact file and instantiate it with truffle-contract
-        //   var AdoptionArtifact = data;
-        //   App.contracts.Adoption = TruffleContract(AdoptionArtifact);
-        //
-        //   // Set the provider for our contract
-        //   App.contracts.Adoption.setProvider(App.web3Provider);
-        //
-        //   // Use our contract to retrieve and mark the adopted pets
-        //   return App.markAdopted();
-        // });
 
         $.getJSON('Token.json', function(data) {
             // Get the necessary contract artifact file and instantiate it with truffle-contract
@@ -59,7 +34,16 @@ App = {
             App.contracts.Token.setProvider(App.web3Provider);
 
             // Use our contract to retrieve and mark the adopted pets
-            return App.readBalance(accountAddress);
+            return App.readBalance(account);
+        });
+
+        //transfer event
+        CONTRACT.Transfer((err, res) => {
+          App.readBalance(account)
+        });
+
+        CONTRACT.Approval((err, res) => {
+          App.readBalance(account)
         });
 
         return App.bindEvents();
@@ -69,55 +53,26 @@ App = {
         $(document).on('click', '.transferFunds', App.handleTransfer);
     },
 
-    readBalance: function(address) {
-        var contractInstance;
-        App.contracts.Token.deployed().then(function(instance) {
-            contractInstance = instance;
-            return contractInstance.balanceOf.call();
-        }).then(function() {
-            var balance = balanceOf(address);
-            $("#balance").text() = balance;
-        }).catch(function(err) {
-            console.log(err.message);
-        });
+    readBalance: function {
+      App.balanceOf(account, (err, tkns) => {
+        if (!err) {
+          balance = web3.fromWei(tkns, 'ether').toNumber()
+          $('#balance').text() = balance
+        }
+        console.log(err)
+      })
     },
 
-    transferFunds: function() {
-        const abi = [{
-            "constant": false,
-            "inputs": [{
-                    "name": "_to",
-                    "type": "address"
-                },
-                {
-                    "name": "_value",
-                    "type": "uint256"
-                }
-            ],
-            "name": "transfer",
-            "outputs": [{
-                "name": "success",
-                "type": "bool"
-            }],
-            "payable": false,
-            "type": "function"
-        }]
-        const address = '0xdeadbeef123456789000000000000'
+    //sending Tokens
 
-        const MiniToken = contract(abi)
-        const miniToken = MiniToken.at(address)
-        var button = document.querySelector('button.transferFunds')
-        button.addEventListener('click', function() {
-            miniToken.transfer(toAddress, value, {
-                    from: addr
-                })
-                .then(function(txHash) {
-                    console.log('Transaction sent')
-                    console.dir(txHash)
-                    waitForTxToBeMined(txHash)
-                })
-                .catch(console.error)
-        })
+    transferFunds: function() {
+      App.transfer(account, web3.toWei(this.amount, 'ether'), (err, res) => {
+        if (!err) {
+          console.log(res)
+          return
+        }
+        console.log(err)
+      })
     }
 
 };

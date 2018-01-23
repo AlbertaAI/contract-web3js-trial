@@ -13,6 +13,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "lite-server": "^2.3.0"
+    "bignumber.js": "^5.0.0",
+    "lite-server": "^2.3.0",
+    "web3": "^0.20.4"
   }
 }
