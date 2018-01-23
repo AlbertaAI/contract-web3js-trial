@@ -180,10 +180,10 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "pragma solidity ^0.4.11;\n\ninterface IERC20 {\n    function totalSupply() constant returns (uint256 totalSupply);\n    function balanceOf(address _owner) constant returns (uint256 balance);\n    function transfer(address _to, uint _value) returns (bool success);\n    function transferFrom(address _from, address _to, uint _value) returns (bool success);\n    function approve(address _spender, uint256 _value) returns (bool success);\n    function allowance(address _owner, address _spender) constant returns (uint256 remaining);\n    event Transfer(address indexed _from, address indexed _to, uint256 _value);\n    event Approval(address indexed _owner, address indexed _spender, uint256 _value);\n}\n",
-  "sourcePath": "/Users/dominikazaleska/Desktop/pet-shop-tutorial/contracts/IERC20.sol",
+  "sourcePath": "/Users/dominikazaleska/Desktop/contract web3.js trial/contract-web3js-trial/contracts/IERC20.sol",
   "ast": {
     "attributes": {
-      "absolutePath": "/Users/dominikazaleska/Desktop/pet-shop-tutorial/contracts/IERC20.sol",
+      "absolutePath": "/Users/dominikazaleska/Desktop/contract web3.js trial/contract-web3js-trial/contracts/IERC20.sol",
       "exportedSymbols": {
         "IERC20": [
           112
@@ -1072,5 +1072,5 @@
   },
   "networks": {},
   "schemaVersion": "1.0.1",
-  "updatedAt": "2018-01-23T05:22:53.383Z"
+  "updatedAt": "2018-01-23T10:51:07.976Z"
 }
