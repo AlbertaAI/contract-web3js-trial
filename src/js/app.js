@@ -38,12 +38,12 @@ App = {
         });
 
         //transfer event
-        CONTRACT.Transfer((err, res) => {
-          App.readBalance(account)
+        App.Transfer((err, res) => {
+            App.readBalance(account)
         });
 
-        CONTRACT.Approval((err, res) => {
-          App.readBalance(account)
+        App.Approval((err, res) => {
+            App.readBalance(account)
         });
 
         return App.bindEvents();
@@ -53,26 +53,26 @@ App = {
         $(document).on('click', '.transferFunds', App.handleTransfer);
     },
 
-    readBalance: function {
-      App.balanceOf(account, (err, tkns) => {
-        if (!err) {
-          balance = web3.fromWei(tkns, 'ether').toNumber()
-          $('#balance').text() = balance
-        }
-        console.log(err)
-      })
+    readBalance: function() {
+        App.balanceOf(account, (err, tkns) => {
+            if (!err) {
+                balance = web3.fromWei(tkns, 'ether').toNumber()
+                $('#balance').text() = balance
+            }
+            console.log(err)
+        })
     },
 
     //sending Tokens
 
     transferFunds: function() {
-      App.transfer(account, web3.toWei(chosenTokenNumber, 'ether'), (err, res) => {
-        if (!err) {
-          console.log(res)
-          return
-        }
-        console.log(err)
-      })
+        App.transfer(account, web3.toWei(chosenTokenNumber, 'ether'), (err, res) => {
+            if (!err) {
+                console.log(res)
+                return
+            }
+            console.log(err)
+        })
     }
 
 };
