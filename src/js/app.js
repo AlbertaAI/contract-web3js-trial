@@ -67,13 +67,25 @@ App = {
         //     }
         //     console.log(err)
         // })
-        App.balanceOf(account, (err, tkns) => {
-            if (!err) {
-                balance = web3.fromWei(tkns, 'ether').toNumber()
-                $('#balance').text() = balance
-            }
-            console.log(err)
-        })
+        App.contracts.Token.deployed().then(function(instance) {
+          tokenInstance = instance;
+          account = web3.fromWei(account, 'ether').toNumber()
+          balance = tokenInstance.balanceOf.call(account);
+          return tokenInstance.balanceOf.call(account);
+        }).then(function() {
+            balance = web3.fromWei(balance, 'ether').toNumber()
+            $('#balance').text() = balance
+        }).catch(function(err) {
+          console.log(err.message);
+        });
+
+        // App.balanceOf(account, (err, tkns) => {
+        //     if (!err) {
+        //         balance = web3.fromWei(tkns, 'ether').toNumber()
+        //         $('#balance').text() = balance
+        //     }
+        //     console.log(err)
+        // })
     },
 
     //sending Tokens
