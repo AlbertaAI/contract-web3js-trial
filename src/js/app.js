@@ -66,7 +66,7 @@ App = {
     //sending Tokens
 
     transferFunds: function() {
-      App.transfer(account, web3.toWei(this.amount, 'ether'), (err, res) => {
+      App.transfer(account, web3.toWei(chosenTokenNumber, 'ether'), (err, res) => {
         if (!err) {
           console.log(res)
           return
