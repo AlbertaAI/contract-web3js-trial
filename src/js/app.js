@@ -59,7 +59,7 @@ App = {
             App.contracts.Token.setProvider(App.web3Provider);
 
             // Use our contract to retrieve and mark the adopted pets
-            return App.readBalance();
+            return App.readBalance(accountAddress);
         });
 
         return App.bindEvents();
@@ -69,14 +69,13 @@ App = {
         $(document).on('click', '.transferFunds', App.handleTransfer);
     },
 
-    readBalance: function() {
+    readBalance: function(address) {
         var contractInstance;
         App.contracts.Token.deployed().then(function(instance) {
             contractInstance = instance;
-
             return contractInstance.balanceOf.call();
         }).then(function() {
-            var balance = balanceOf(accountAddress);
+            var balance = balanceOf(address);
             $("#balance").text() = balance;
         }).catch(function(err) {
             console.log(err.message);
