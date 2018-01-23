@@ -1,12 +1,16 @@
+var account = $('#accountAddress').text();
+var balance = 0;
+var chosenTokenNumber = document.getElementById("tokenOutputNumber").value;
+$('#myRange').on('change', function(){
+    chosenTokenNumber = $(this).val();
+});
+var BigNumber = require('bignumber.js');
+
 App = {
     web3Provider: null,
     contracts: {},
 
     init: function() {
-        var account = $('#accountAddress').text();
-        var balance = 0;
-        var chosenTokenNumber = document.getElementById("tokenOutputNumber").value;
-        var BigNumber = require('bignumber.js');
         return App.initWeb3();
     },
 
@@ -28,6 +32,7 @@ App = {
         $.getJSON('Token.json', function(data) {
             // Get the necessary contract artifact file and instantiate it with truffle-contract
             var TokenArtifact = data;
+
             App.contracts.Token = TruffleContract(TokenArtifact);
 
             // Set the provider for our contract
@@ -35,15 +40,16 @@ App = {
 
             // Use our contract to retrieve and mark the adopted pets
             return App.readBalance(account);
-        });
 
-        //transfer event
-        App.Transfer((err, res) => {
-            App.readBalance(account)
-        });
+            App.Approval ().watch ( (err, response) => {  //set up listener for the AuctionClosed Event
+              //once the event has been detected, take actions as desired
+              App.readBalance(account)
+            });
 
-        App.Approval((err, res) => {
-            App.readBalance(account)
+            App.Transfer ().watch ( (err, response) => {  //set up listener for the AuctionClosed Event
+              //once the event has been detected, take actions as desired
+              App.readBalance(account)
+            });
         });
 
         return App.bindEvents();
@@ -54,6 +60,13 @@ App = {
     },
 
     readBalance: function() {
+        // App.balanceOf(account, (err, tkns) => {
+        //     if (!err) {
+        //         balance = web3.fromWei(tkns, 'ether').toNumber()
+        //         $('#balance').text() = balance
+        //     }
+        //     console.log(err)
+        // })
         App.balanceOf(account, (err, tkns) => {
             if (!err) {
                 balance = web3.fromWei(tkns, 'ether').toNumber()
