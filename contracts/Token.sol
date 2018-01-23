@@ -3,7 +3,7 @@ pragma solidity ^0.4.11;
 import './IERC20.sol';
 import './SafeMath.sol';
 
-contract AlbertaTokenTest is IERC20 {
+contract Token is IERC20 {
 
     //Saves the uint256 data from Overflow (above the scope) and Underflow (negative number) Attacks
     using SafeMath for uint256;
@@ -31,7 +31,7 @@ contract AlbertaTokenTest is IERC20 {
     }
 
     //Constructor function, setting the contract creator as owner
-    function AlbertaTokenTest() {
+    function Token() {
         owner = msg.sender;
     }
 
